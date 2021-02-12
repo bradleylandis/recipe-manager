@@ -13,5 +13,7 @@ namespace recipemanager.business
         public ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
 
         public ICollection<Instruction> Instructions { get; set; } = new List<Instruction>();
+
+        public byte[] Image { get; set; }
     }
 }

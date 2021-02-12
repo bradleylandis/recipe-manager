@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = $"Add a new Recipe";
+}
+@model AddNewRecipeViewModel
+
+<h1>Add a new recipe</h1>
+
+<div asp-validation-summary="ModelOnly"></div>
+
+<form enctype="multipart/form-data" asp-action="Add">
+    <label asp-for="Title"></label>
+    <input asp-for="Title" /><span asp-validation-for="Title"></span>
+    <label asp-for="Comment"></label>
+    <input asp-for="Comment" /><span asp-validation-for="Comment"></span>
+    <label asp-for="Image"></label>
+    <input asp-for="Image">  
+    
+    @for (var i = 0; i < Model.Ingredients.Count; i++)
+    {
+        @Html.EditorFor(model => Model.Ingredients[i])
+    }
+    
+    @for (var i = 0; i < Model.Instructions.Count; i++)
+    {
+        @Html.EditorFor(model => Model.Instructions[i])
+    }
+    <input type="submit" />
+</form>

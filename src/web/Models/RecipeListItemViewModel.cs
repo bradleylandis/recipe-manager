@@ -1,6 +1,6 @@
 namespace recipemanager.web.Models
 {
-    public class RecipeListItem
+    public class RecipeListItemViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; }

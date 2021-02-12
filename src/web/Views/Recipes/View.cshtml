@@ -1,13 +1,18 @@
-@{
-    ViewData["Title"] = "Home Page";
-}
 @model RecipeDetailViewModel
+@{
+    ViewData["Title"] = $"Recipe - {Model.Title}";
+}
 
 
 <h1>@Model.Title</h1>
 
 
 <h2>@Model.Comment</h2>
+
+@if (Model.ImageSource != null)
+{
+    <img src="@Model.ImageSource"/>
+}
 
 <ul>
     @foreach (var ingredient in Model.Ingredients)
@@ -16,9 +21,9 @@
     }
 </ul>
 
-<ul>
+<ol>
     @foreach (var instruction in Model.Instructions)
     {
         <li>@instruction.Description</li>
     }
-</ul>
+</ol>

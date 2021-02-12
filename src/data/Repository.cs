@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Threading.Tasks;
 using recipemanager.business;
 
 namespace recipemanager.data
@@ -15,6 +16,14 @@ namespace recipemanager.data
         public IQueryable<T> Read()
         {
             return context.Set<T>().AsQueryable<T>();
+        }
+
+        public async Task Create(T entity)
+        {
+
+            context.Set<T>().Attach(entity);
+
+            await context.SaveChangesAsync();
         }
     }
 }

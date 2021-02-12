@@ -1,7 +1,12 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Recipes";
 }
-@model IEnumerable<RecipeListItem>
+@model RecipeListViewModel
+
+<form method="get">
+    <input type="text" name="filter" value=@Model.Filter />
+    <input type="submit" value="Filter" />
+</form>
 
 <table>
     <thead>
@@ -10,7 +15,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var recipeListItem in Model)
+        @foreach (var recipeListItem in Model.Recipes)
         {
             <tr>
                 <td>@Html.ActionLink(recipeListItem.Title, "View", "Recipes", new {Id = recipeListItem.Id})</td>
@@ -18,3 +23,5 @@
         }
     </tbody>
 </table>
+
+@Html.ActionLink("Add new recipe", "Add", "Recipes")
