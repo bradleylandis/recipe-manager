@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model IEnumerable<RecipeListItem>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var recipeListItem in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(recipeListItem.Title, "View", "Recipes", new {Id = recipeListItem.Id})</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,24 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+@model RecipeDetailViewModel
+
+
+<h1>@Model.Title</h1>
+
+
+<h2>@Model.Comment</h2>
+
+<ul>
+    @foreach (var ingredient in Model.Ingredients)
+    {
+        <li>@ingredient.Measurement of @ingredient.Name</li>
+    }
+</ul>
+
+<ul>
+    @foreach (var instruction in Model.Instructions)
+    {
+        <li>@instruction.Description</li>
+    }
+</ul>
