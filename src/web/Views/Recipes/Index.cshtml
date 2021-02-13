@@ -3,25 +3,29 @@
 }
 @model RecipeListViewModel
 
-<form method="get">
-    <input type="text" name="filter" value=@Model.Filter />
-    <input type="submit" value="Filter" />
-</form>
+<div class="row">
+    <div class="col-xs-12">
+        <form method="get">
+            <input type="text" name="filter" value=@Model.Filter/>
+            <input type="submit" value="Filter"/>
+        </form>
+    </div>
+</div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var recipeListItem in Model.Recipes)
+<div class="row">
+@foreach (var recipeListItem in Model.Recipes)
         {
-            <tr>
-                <td>@Html.ActionLink(recipeListItem.Title, "View", "Recipes", new {Id = recipeListItem.Id})</td>
-            </tr>
+            <div class="card col-md-3" style="width: 18rem;">
+                <img class="card-img-top" src="@recipeListItem.ImageSource" alt="@recipeListItem.Title">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.ActionLink(recipeListItem.Title, "View", "Recipes", new {Id = recipeListItem.Id})</h5>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+</div>
 
-@Html.ActionLink("Add new recipe", "Add", "Recipes")
+<div class="row">
+    <div class="col-xs-12">
+        @Html.ActionLink("Add new recipe", "Add", "Recipes", new {}, new {Class = "btn btn-primary"})
+    </div>
+</div>

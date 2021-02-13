@@ -31,12 +31,17 @@ namespace recipemanager.web.Controllers
             }
 
             //TODO: use automapper projections
-            //TODO: implement paging or infinite scrolling - some way to make sure the query is bound
-            var recipeListItems = query.Select(r => new RecipeListItemViewModel { Id = r.Id, Title = r.Title });
+            //TODO: implement paging or infinite scrolling instead of just taking top 10
+            var recipeListItems = query.Take(10).Select(r => new RecipeListItemViewModel { Id = r.Id, Title = r.Title, ImageSource = GetImageSource(r.Image) });
 
             return View(new RecipeListViewModel { Filter = filter, Recipes = recipeListItems });
         }
 
+        private static string GetImageSource(byte[] modelImage)
+        {
+            return modelImage?.Length > 0 ? $"data:image/png;base64,{Convert.ToBase64String(modelImage)}" : null;
+        }
+        
         public IActionResult View(int id)
         {
             var model = recipeRepository.Read().Include(r => r.Ingredients).Include(r => r.Instructions).FirstOrDefault(r => r.Id == id);
@@ -53,7 +58,7 @@ namespace recipemanager.web.Controllers
                 Comment = model.Comment,
                 Ingredients = model.Ingredients.Select(i => new RecipeDetailIngredientViewModel { Name = i.Name, Measurement = i.Measurement }),
                 Instructions = model.Instructions.Select(i => new RecipeDetailInstructionViewModel { Description = i.Description }),
-                ImageSource = model.Image?.Length > 0 ? $"data:image/png;base64,{Convert.ToBase64String(model.Image)}": null
+                ImageSource = GetImageSource(model.Image)
             };
 
             return View(viewModel);
