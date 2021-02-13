@@ -3,27 +3,36 @@
     ViewData["Title"] = $"Recipe - {Model.Title}";
 }
 
+<div class="row">
+    <div class="col-md-4">
+        @if (Model.ImageSource != null)
+        {
+            <img src="@Model.ImageSource"/>
+        }
+    </div>
+    <div class="col-md-8">
+        <h1>@Model.Title</h1>
+        <p>@Model.Comment</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h3>Ingredients</h3>
+        <ul>
+            @foreach (var ingredient in Model.Ingredients)
+            {
+                <li>@ingredient.Measurement of @ingredient.Name</li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-8">
+        <h3>Instructions</h3>
+        <ol>
+            @foreach (var instruction in Model.Instructions)
+            {
+                <li>@instruction.Description</li>
+            }
+        </ol>
+    </div>
+</div>
 
-<h1>@Model.Title</h1>
-
-
-<h2>@Model.Comment</h2>
-
-@if (Model.ImageSource != null)
-{
-    <img src="@Model.ImageSource"/>
-}
-
-<ul>
-    @foreach (var ingredient in Model.Ingredients)
-    {
-        <li>@ingredient.Measurement of @ingredient.Name</li>
-    }
-</ul>
-
-<ol>
-    @foreach (var instruction in Model.Instructions)
-    {
-        <li>@instruction.Description</li>
-    }
-</ol>

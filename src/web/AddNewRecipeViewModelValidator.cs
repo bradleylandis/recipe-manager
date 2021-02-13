@@ -7,7 +7,7 @@ namespace recipemanager.web
     {
         public AddNewRecipeViewModelValidator()
         {
-            RuleFor(x => x.Title).NotNull().Length(1, 10);
+            RuleFor(x => x.Title).NotNull().Length(1, 100);
             RuleFor(x => x.Comment).NotNull();
         }
     }
