@@ -1,0 +1,25 @@
+@model recipemanager.web.Models.FavoritesListViewModel
+@{
+    ViewData["Title"] = "Favorites";
+}
+
+<h1>Favorites</h1>
+
+<div class="row">
+    @if (Model.Recipes.Any())
+    {
+        foreach (var recipeListItem in Model.Recipes)
+        {
+            <div class="card col-md-3" style="width: 18rem;">
+                <img class="card-img-top" src="@recipeListItem.ImageSource" alt="@recipeListItem.Title">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.ActionLink(recipeListItem.Title, "View", "Recipes", new {Id = recipeListItem.Id})</h5>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h3>No favorites found</h3>
+    }
+</div>

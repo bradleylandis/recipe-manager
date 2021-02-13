@@ -10,5 +10,6 @@ namespace recipemanager.data
         }
 
         public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
     }
 }

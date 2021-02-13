@@ -1,11 +1,9 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using recipemanager.business;
 using recipemanager.web.Models;
 
@@ -13,13 +11,11 @@ namespace recipemanager.web.Controllers
 {
     public class RecipesController : Controller
     {
-        private readonly ILogger<RecipesController> logger;
         private readonly IRepository<Recipe> recipeRepository;
 
-        public RecipesController(ILogger<RecipesController> logger, IRepository<Recipe> recipeRepository)
+        public RecipesController(IRepository<Recipe> recipeRepository)
         {
             this.recipeRepository = recipeRepository;
-            this.logger = logger;
         }
 
         public IActionResult Index([FromQuery] string filter)
@@ -32,14 +28,9 @@ namespace recipemanager.web.Controllers
 
             //TODO: use automapper projections
             //TODO: implement paging or infinite scrolling instead of just taking top 10
-            var recipeListItems = query.Take(10).Select(r => new RecipeListItemViewModel { Id = r.Id, Title = r.Title, ImageSource = GetImageSource(r.Image) });
+            var recipeListItems = query.Take(10).Select(r => new RecipeListItemViewModel { Id = r.Id, Title = r.Title, ImageSource = ImageHelpers.GetImageSource(r.Image) });
 
             return View(new RecipeListViewModel { Filter = filter, Recipes = recipeListItems });
-        }
-
-        private static string GetImageSource(byte[] modelImage)
-        {
-            return modelImage?.Length > 0 ? $"data:image/png;base64,{Convert.ToBase64String(modelImage)}" : null;
         }
         
         public IActionResult View(int id)
@@ -58,7 +49,7 @@ namespace recipemanager.web.Controllers
                 Comment = model.Comment,
                 Ingredients = model.Ingredients.Select(i => new RecipeDetailIngredientViewModel { Name = i.Name, Measurement = i.Measurement }),
                 Instructions = model.Instructions.Select(i => new RecipeDetailInstructionViewModel { Description = i.Description }),
-                ImageSource = GetImageSource(model.Image)
+                ImageSource = ImageHelpers.GetImageSource(model.Image)
             };
 
             return View(viewModel);
@@ -98,7 +89,6 @@ namespace recipemanager.web.Controllers
 
             return Redirect("/");
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

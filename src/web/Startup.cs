@@ -25,6 +25,7 @@ namespace recipemanager.web
             services.AddControllersWithViews().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<AddNewRecipeViewModelValidator>());
 
             services.AddScoped<IRepository<Recipe>, Repository<Recipe>>();
+            services.AddScoped<IRepository<Favorite>, Repository<Favorite>>();
             services.AddDbContext<RecipeContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
         }
 
