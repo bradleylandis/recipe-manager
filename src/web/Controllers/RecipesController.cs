@@ -68,9 +68,10 @@ namespace recipemanager.web.Controllers
                 return View(addNewRecipeViewModel);
             }
 
-            byte[] bytesInImage;
-            await using (var ms = new MemoryStream())
+            byte[] bytesInImage = null;
+            if (addNewRecipeViewModel.Image != null)
             {
+                await using var ms = new MemoryStream();
                 await addNewRecipeViewModel.Image.CopyToAsync(ms);
                 bytesInImage = ms.ToArray();
             }
