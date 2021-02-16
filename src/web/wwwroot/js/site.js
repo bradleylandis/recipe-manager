@@ -8,27 +8,27 @@ function AddInstruction(){
     const index = numberOfInstructions;
     numberOfInstructions++;
 
-    var labelElement = document.createElement('label');
+    let labelElement = document.createElement('label');
     labelElement.setAttribute("for", `Instructions_${index}__Description`);
     labelElement.innerText = 'Description';
 
-    var inputElement = document.createElement('input');
+    let inputElement = document.createElement('input');
     inputElement.setAttribute("type", "text");
     inputElement.setAttribute("id", `Instructions_${index}__Description`);
     inputElement.setAttribute("name", `Instructions[${index}].Description`);
     inputElement.setAttribute("class", "form-control");
-    
-    var spanElement = document.createElement('span');
+
+    let spanElement = document.createElement('span');
     spanElement.setAttribute("class", "field-validation-valid");
     spanElement.setAttribute("data-valmsg-for", `Instructions[${index}].Description`);
     spanElement.setAttribute("data-valmsg-replace", "true");
 
-    var formGroupElement = document.createElement('div');
-    formGroupElement.setAttribute("class", "form-group row");
+    let formGroupElement = document.createElement('div');
+    formGroupElement.setAttribute("class", "form-group row col-md-12");
     formGroupElement.appendChild(labelElement);
     formGroupElement.appendChild(inputElement);
 
-    var instructions = document.getElementById('instructions');
+    let instructions = document.getElementById('instructions');
     instructions.appendChild(formGroupElement);
 }
 

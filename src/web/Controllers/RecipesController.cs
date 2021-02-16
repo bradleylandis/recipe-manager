@@ -27,8 +27,8 @@ namespace recipemanager.web.Controllers
             }
 
             //TODO: use automapper projections
-            //TODO: implement paging or infinite scrolling instead of just taking top 10
-            var recipeListItems = query.Take(10).Select(r => new RecipeListItemViewModel { Id = r.Id, Title = r.Title, ImageSource = ImageHelpers.GetImageSource(r.Image) });
+            //TODO: implement paging or infinite scrolling instead of just taking top 12
+            var recipeListItems = query.Take(12).Select(r => new RecipeListItemViewModel { Id = r.Id, Title = r.Title, ImageSource = ImageHelpers.GetImageSource(r.Image) });
 
             return View(new RecipeListViewModel { Filter = filter, Recipes = recipeListItems });
         }
